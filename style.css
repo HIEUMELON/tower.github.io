@@ -1,0 +1,253 @@
+@import url("https://fonts.googleapis.com/css?family=Comfortaa");
+
+html, body {
+  margin: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  font-family: "Comfortaa", cursive;
+}
+
+#container {
+  width: 100%;
+  height: 100%;
+}
+
+#container #game {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+}
+
+/* Score */
+#container #score {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  text-align: center;
+  font-size: 10vh;
+  transition: transform 0.5s ease;
+  color: #333344;
+  transform: translateY(-200px) scale(1);
+}
+#container.playing #score,
+#container.resetting #score {
+  transform: translateY(0px) scale(1);
+}
+#container.ended #score {
+  transform: translateY(6vh) scale(1.5);
+}
+
+/* High score badge */
+#high-score {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 14px;
+  color: #333344;
+  opacity: 0.6;
+  font-family: "Comfortaa", cursive;
+  transition: opacity 0.4s;
+}
+
+/* Combo display */
+#combo-display {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  font-size: 5vh;
+  color: #ff6b35;
+  pointer-events: none;
+  transform: translateY(-120px);
+  transition: opacity 0.3s;
+  font-weight: bold;
+  text-shadow: 0 2px 8px rgba(255,107,53,0.4);
+  opacity: 0;
+}
+#combo-display.combo-active {
+  opacity: 1;
+  animation: comboPulse 0.4s ease;
+}
+@keyframes comboPulse {
+  0%   { transform: translateY(-120px) scale(1.4); }
+  100% { transform: translateY(-120px) scale(1); }
+}
+
+/* Instructions */
+#container #instructions {
+  position: absolute;
+  width: 100%;
+  top: 16vh;
+  left: 0;
+  text-align: center;
+  font-size: 16px;
+  color: #333344;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+#container #instructions.hide { opacity: 0 !important; }
+#container.playing #instructions { opacity: 1; }
+
+/* Game Ready */
+#container .game-ready {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+#container .game-ready #start-button {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 0;
+  transform: translateY(-50px);
+  border: 3px solid #333344;
+  padding: 12px 28px;
+  background-color: transparent;
+  color: #333344;
+  font-size: 30px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+#container.ready .game-ready #start-button {
+  opacity: 1;
+  transform: translateY(0);
+}
+#container.ready .game-ready #start-button:hover {
+  background-color: rgba(51,51,68,0.08);
+}
+
+/* Theme picker */
+#theme-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  padding: 0 16px;
+  transition: opacity 0.5s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+#container.ready #theme-picker {
+  opacity: 1;
+  pointer-events: all;
+}
+.theme-btn {
+  border: 2px solid #333344;
+  background: transparent;
+  color: #333344;
+  font-family: "Comfortaa", cursive;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+.theme-btn:hover {
+  background: rgba(51,51,68,0.1);
+}
+.theme-btn.active {
+  background: #333344;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Game Over */
+#container .game-over {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+#container .game-over * {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 0;
+  transform: translateY(-50px);
+  color: #333344;
+}
+#container .game-over h2 {
+  margin: 0; padding: 0;
+  font-size: 40px;
+}
+#container .game-over p {
+  margin: 4px 0;
+  font-size: 18px;
+}
+#container .game-over .restart-hint {
+  margin-top: 16px;
+  font-size: 14px;
+  opacity: 0;
+  color: #666;
+}
+#container.ended .game-over * {
+  opacity: 1;
+  transform: translateY(0);
+}
+#container.ended .game-over p {
+  transition-delay: 0.25s;
+}
+#container.ended .game-over .restart-hint {
+  transition-delay: 0.5s;
+}
+
+/* Perfect flash overlay */
+#container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 180, 0);
+  pointer-events: none;
+  transition: background 0.28s ease;
+}
+#container.flash-perfect::after {
+  background: rgba(255, 255, 100, 0.22);
+  transition: none;
+}
+
+/* Floating feedback text */
+.floating-text {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translateX(-50%) translateY(0px);
+  pointer-events: none;
+  font-family: "Comfortaa", cursive;
+  font-weight: bold;
+  white-space: nowrap;
+  animation: floatUp 1.1s ease forwards;
+  z-index: 100;
+}
+.ft-perfect {
+  font-size: 6vh;
+  color: #ffd700;
+  text-shadow: 0 2px 12px rgba(255,200,0,0.7), 0 0 30px rgba(255,220,0,0.4);
+}
+.ft-combo {
+  font-size: 5vh;
+  top: 52%;
+  color: #ff6b35;
+  text-shadow: 0 2px 10px rgba(255,107,53,0.6);
+}
+.ft-milestone {
+  font-size: 5.5vh;
+  color: #8b5cf6;
+  text-shadow: 0 2px 12px rgba(139,92,246,0.6);
+}
+.ft-warning {
+  font-size: 4.5vh;
+  color: #ef4444;
+  text-shadow: 0 2px 10px rgba(239,68,68,0.6);
+}
+@keyframes floatUp {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(10px) scale(0.7); }
+  15%  { opacity: 1; transform: translateX(-50%) translateY(0px) scale(1.15); }
+  40%  { opacity: 1; transform: translateX(-50%) translateY(-10px) scale(1); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-50px) scale(0.9); }
+}

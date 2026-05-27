@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tower Bloxx</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <meta name="viewport" content="width=device-width,user-scalable=no">
+
+  <div id="container">
+    <div id="game"></div>
+    <div id="score">0</div>
+    <div id="high-score"></div>
+    <div id="combo-display"></div>
+    <div class="game-over">
+      <h2>Game Over</h2>
+      <p>Score: <span id="final-score">0</span></p>
+      <p id="best-score"></p>
+      <p class="restart-hint">Click to play again</p>
+    </div>
+    <div class="game-ready">
+      <div id="start-button">Tower Bloxx</div>
+      <div id="theme-picker">
+        <button class="theme-btn" data-theme="classic">Classic</button>
+        <button class="theme-btn" data-theme="bigben">Big Ben</button>
+        <button class="theme-btn" data-theme="eiffel">Eiffel</button>
+        <button class="theme-btn" data-theme="pisa">Pisa</button>
+        <button class="theme-btn" data-theme="burj">Burj</button>
+        <button class="theme-btn" data-theme="empire">Empire</button>
+      </div>
+      <div id="instructions">Tap or press Space to drop</div>
+    </div>
+  </div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js'></script>
+  <script src="./script.js"></script>
+
+</body>
+
+</html>
